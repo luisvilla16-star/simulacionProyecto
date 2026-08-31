@@ -1,0 +1,15 @@
+@startuml
+
+class Main {
+  + main(String[] args) : void
+}
+
+class ManejoDeBits {
+
+  + leer8bytes() : ArrayList<Integer>
+  + verificarFormato(ArrayList<Integer>) : String
+}
+
+Main --> ManejoDeBits : usa
+
+@enduml

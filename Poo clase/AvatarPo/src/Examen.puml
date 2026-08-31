@@ -1,0 +1,100 @@
+@startuml
+
+' =======================
+'        CLASE BASE
+' =======================
+class Personaje {
+    # String nacion
+    # String nombre
+    # boolean vivo
+    # String genero
+    # int edad
+    # int energia
+
+    + Personaje()
+    + Personaje(String, String, boolean, String, int, int)
+
+    + String getNombre()
+    + int getEnergia()
+    + void setEnergia(int)
+    + boolean existe(boolean)
+    + void atacar() throws EnergiaInsuficienteException
+    + String toString()
+}
+
+' =======================
+'   CLASE ABSTRACTA
+' =======================
+abstract class MaestroUnElemento {
+    # int nivelDeDominio
+
+    + MaestroUnElemento()
+    + MaestroUnElemento(String, String, boolean, String, int, int, int)
+
+    + int getNivelDeDominio()
+    + String toString()
+}
+
+Personaje <|-- MaestroUnElemento
+
+' =======================
+'       INTERFACES
+' =======================
+interface IMaestroAgua {
+    + controlAgua()
+    + cambiarEstado()
+    + movilidad()
+}
+
+interface IMaestroAire {
+    + controlarAire()
+    + movilidadExtrema()
+}
+
+interface IMaestroFuego {
+    + controlarFuego()
+    + ataqueRapido()
+    + movilidad()
+}
+
+interface IMaestroTierra {
+    + controlTierra()
+    + defensaSolida()
+    + movilidadTierra()
+}
+
+' =======================
+'       EXCEPCIONES
+' =======================
+class EnergiaInsuficienteException
+class EnergiaNegativaException
+
+Exception <|-- EnergiaInsuficienteException
+Exception <|-- EnergiaNegativaException
+
+' =======================
+'       PERSONAJES
+' =======================
+
+class Aang
+class Katara
+class Soka
+class Suko
+class Toph
+
+MaestroUnElemento <|-- Aang
+MaestroUnElemento <|-- Katara
+Personaje <|-- Soka
+MaestroUnElemento <|-- Suko
+MaestroUnElemento <|-- Toph
+
+Aang ..|> IMaestroAgua
+Aang ..|> IMaestroAire
+Aang ..|> IMaestroFuego
+Aang ..|> IMaestroTierra
+
+Katara ..|> IMaestroAgua
+Suko ..|> IMaestroFuego
+Toph ..|> IMaestroTierra
+
+@enduml
