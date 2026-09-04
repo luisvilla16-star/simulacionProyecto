@@ -1,0 +1,37 @@
+@startuml
+
+class Main {
+    +main(args: String[]): void
+}
+
+class recursividad {
+
+    +serieN0(n: int): String
+
+    +serie0N(n: int): String
+
+    +calculoMultiplicacion(a: int, b: int): int
+
+    +serieFibonacci(n: int): String
+
+    +serieFibonacciNumero(n: int): int
+
+    +primo(n: int, divisor: int): boolean
+
+    +econtrarNumeroArreglo(n: int, vector: int[], contador: int): int
+
+    +mayorArreglo(arreglo: int[], contador: int, var: int): int
+
+    +aparicionInmediata(cad: String, cad1: char, cad2: char, contador: int): boolean
+
+    +OrejasDeConejos(n: int): int
+
+    +sumaNumeros(cad: String, contador: int): int
+}
+
+Main ..> recursividad : crea objeto
+Main ..> recursividad : utiliza métodos
+
+recursividad ..> recursividad : recursividad
+
+@enduml
