@@ -1,4 +1,4 @@
-package DeckOfCards;
+package org.example.pratica4.DeckOfCards;
 /**
  * Write a description of class CartaInglesa here.
  *

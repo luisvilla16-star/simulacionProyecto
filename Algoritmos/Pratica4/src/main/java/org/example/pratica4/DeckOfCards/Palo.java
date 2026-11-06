@@ -1,4 +1,4 @@
-package DeckOfCards;
+package org.example.pratica4.DeckOfCards;
 /**
  * Palos de cartas de una baraja inglesa.
  *

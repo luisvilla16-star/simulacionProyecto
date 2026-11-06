@@ -1,54 +1,121 @@
-package DeckOfCards;
-/**
- * Write a description of class Mazo here.
- *
- * @author (Cecilia Curlango Rosas)
- * @version (2025-2)
- */
-import java.util.ArrayList;
-import java.util.Collections;
+
+package org.example.pratica4.DeckOfCards;
+
+import org.example.pratica4.Logica.ListaCircularDoble;
+import java.util.Random;
 
 public class Mazo {
-    private ArrayList<CartaInglesa> cartas = new ArrayList<>();
+
+    private ListaCircularDoble<CartaInglesa> cartas =
+            new ListaCircularDoble<>();
+
+    private int cantidad = 0;
 
     public Mazo() {
-        llenar(); // crea todas las cartas, excluyendo Jokers
+        llenar();
         mezclar();
     }
 
-    /**
-     * Obtiene todas las cartas del mazo.
-     * @return
-     */
-    public ArrayList<CartaInglesa> getCartas() {
+    public ListaCircularDoble<CartaInglesa> getCartas() {
         return cartas;
     }
 
     public CartaInglesa obtenerUnaCarta() {
-        if (cartas.size() > 0) {
-            return cartas.remove(0);
+
+        if (cantidad > 0) {
+            cantidad--;
+            return cartas.eliminarInicio();
         }
+
         return null;
     }
+
     private void mezclar() {
-        Collections.shuffle(cartas);
+
+        Random random = new Random();
+
+        CartaInglesa[] arreglo =
+                new CartaInglesa[cantidad];
+
+        for (int i = 0; i < cantidad; i++) {
+            arreglo[i] = cartas.eliminarInicio();
+        }
+
+        for (int i = cantidad - 1; i > 0; i--) {
+
+            int j = random.nextInt(i + 1);
+
+            CartaInglesa aux = arreglo[i];
+            arreglo[i] = arreglo[j];
+            arreglo[j] = aux;
+        }
+
+        for (int i = 0; i < cantidad; i++) {
+            cartas.insertarFin(arreglo[i]);
+        }
     }
 
     private void llenar() {
-        for (int i = 2; i <=14 ; i++) {
+
+        for (int i = 2; i <= 14; i++) {
+
             for (Palo palo : Palo.values()) {
-                CartaInglesa c = new CartaInglesa(i,palo, palo.getColor());
-                cartas.add(c);
+
+                CartaInglesa c =
+                        new CartaInglesa(
+                                i, palo, palo.getColor());
+
+                cartas.insertarFin(c);
+                cantidad++;
             }
         }
     }
 
     public void ordenar() {
-        Collections.sort(cartas);
+
+        CartaInglesa[] arreglo =
+                new CartaInglesa[cantidad];
+
+        for (int i = 0; i < cantidad; i++) {
+            arreglo[i] = cartas.eliminarInicio();
+        }
+
+        for (int i = 0; i < cantidad; i++) {
+
+            for (int j = i + 1; j < cantidad; j++) {
+
+                if (arreglo[i].compareTo(arreglo[j]) > 0) {
+
+                    CartaInglesa aux = arreglo[i];
+                    arreglo[i] = arreglo[j];
+                    arreglo[j] = aux;
+                }
+            }
+        }
+
+        for (int i = 0; i < cantidad; i++) {
+            cartas.insertarFin(arreglo[i]);
+        }
     }
 
     @Override
     public String toString() {
-        return cartas.toString();
+
+        String resultado = "";
+
+        CartaInglesa[] arreglo =
+                new CartaInglesa[cantidad];
+
+        for (int i = 0; i < cantidad; i++) {
+
+            arreglo[i] = cartas.eliminarInicio();
+            resultado += arreglo[i] + " ";
+        }
+
+        for (int i = 0; i < cantidad; i++) {
+            cartas.insertarFin(arreglo[i]);
+        }
+
+        return resultado;
     }
 }
